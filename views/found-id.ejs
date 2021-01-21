@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ID found</title>
+</head>
+<body>
+	<div class="main" id="main">
+	<%- include("./common/header.ejs") -%>
+	<p>Your IDs and entrie(s) linked to your email address</p>
+
+	<% Dataset.forEach(entry => { %>
+		<li><%= entry._id %></li>
+		<li><%= entry.CountryCode %></li>
+		<li><%= entry.question_code %></li>
+		<li><%= entry.question_label %></li>
+		<li><%= entry.subset %></li>
+		<li><%= entry.answer %></li>
+		<li><%= entry.notes %></li>
+
+	<% }); %>
+	</div>
+</body>
+</html>

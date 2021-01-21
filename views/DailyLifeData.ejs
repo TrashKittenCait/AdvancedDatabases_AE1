@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+	<%- include("./common/header.ejs") -%>
+	<div id="main">
+
+		<div id="myChart"> 
+			
+		</div>
+
+		<div id="formArea">
+			<form method="POST" action="/create-dailylife">
+				<label for="DailyLifeData">How Prevalent is offensive language about LGBT by politicians in your country?</label>
+				<select id="Answer" name="answer"> 
+					<option value="Don`t know">Don`t know</option>
+					<option value="Fairly widespread">Fairly widespread</option>
+					<option value="Very widespread">Very widespread</option>
+					<option value="Very rare">Very rare</option>
+					<option value="Fairly rare">Fairly rare</option>
+				</select>	
+				<select id="Subset" name="subset"> 
+					<option value="Gay">Gay</option>
+					<option value="Lesbian">Lesbian</option>
+					<option value="Transgender">Transgender</option>
+					<option value="Bisexual men">Bisexual man</option>
+					<option value="Bisexual women">Bisexual woman</option>
+				</select>	
+				<select id="Country" name="Country"> 
+					<option value="Germany">Germany</option>
+					<option value="United Kingdom">United Kingdom</option>
+					<option value="Austria">Austria</option>
+					<option value="France">France</option>
+					<option value="Spain">Spain</option>
+					<option value="Denmark">Denmark</option>
+					<option value="Italy">Italy</option>
+					<option value="Poland">Poland</option>
+					<option value="Belgium">Belgium</option>
+					<option value="Nether Lands">Nether Lands</option>
+				</select>
+				<input type="email" class="form-control" id="notes" name="Notes" placeholder="Email Address" required>	
+				<input type="submit">
+			</form>
+
+
+			<form id="delete" method="POST" action="/delete-gui-dailylife">
+				<label for="DailyLifeData">ID to delete?</label>
+				<input type="text" class="form-control" id="IDtoDel" name="IDtoDel" placeholder="ID to delete" required>
+				<input type="submit" >
+			</form>
+
+			<form action="/findid-daily " method="POST">
+				<label for="SearchEmail">Search Database Entries with your email</label>
+				<input type="email" name="emailSearch" id="emailSearch" required>
+				<input type="submit" value="Search">
+			</form>
+			<form action="/data-toedit-daily" method="POST">
+				<label for="DataToEdit">ID of Data Entry to edit</label>
+				<input type="text" name="IDinEdit" id="IDinEdit" required>
+				<input type="submit" value="Sumbit">
+			</form>		</div>
+
+
+		<script> 
+			const dailyDataIn = <%- JSON.stringify(DLData) %>
+			
+			var fairly = dailyDataIn.filter(Objects => {
+				return Objects.answer === "Fairly widespread";
+			})	
+			var very = dailyDataIn.filter(Objects => {
+				return Objects.answer === "Very widespread";
+			})
+			var notfairly = dailyDataIn.filter(Objects => {
+				return Objects.answer === "Fairly rare";
+			})	
+			var notvery = dailyDataIn.filter(Objects => {
+				return Objects.answer === "Very rare";
+			})	
+			var dontknow = dailyDataIn.filter(Objects => {
+				return Objects.answer === "Don`t know";
+			})
+			var myConfig = {
+				type: 'pie',
+				title: {
+					text: 'How Prevalent is offensive language about LGBT by politicians in your country?',
+					fontSize: 16,
+				},
+				legend: {
+					draggable: true,
+				},
+				series: [
+					{
+						values: [fairly.length],
+						text: 'Fairly Widespread',
+					},
+					{
+						values: [very.length],
+						text: 'Very Widespread',
+					},	
+					{
+						values: [notfairly.length],
+						text: 'Fairly rare',
+					},
+					{
+						values: [notvery.length],
+						text: 'Very rare',
+					},
+					{
+						values: [dontknow.length],
+						text: 'Don`t Know',
+					}
+				]
+			};
+			zingchart.render({
+				id: 'myChart',
+				data: myConfig,
+			});
+	
+		</script>
+
+	</div>
+</body>
+</html>

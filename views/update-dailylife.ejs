@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document To Edit</title>
+</head>
+<body>
+	<%- include("./common/header.ejs") -%>
+	<div id="main">
+		<div id="formArea">
+		<form method="POST" action="/dataupdate-daily">
+				<label for="DailyLifeData">How Prevalent is offensive language about LGBT by politicians in your country?</label>
+				<select id="Answer" name="answer" > 
+					<option value="Don`t know">Don`t know</option>
+					<option value="Fairly widespread">Fairly widespread</option>
+					<option value="Very widespread">Very widespread</option>
+					<option value="Very rare">Very rare</option>
+					<option value="Fairly rare">Fairly rare</option>
+				</select>	
+				<select id="Subset" name="subset"> 
+					<option value="Gay">Gay</option>
+					<option value="Lesbian">Lesbian</option>
+					<option value="Transgender">Transgender</option>
+					<option value="Bisexual men">Bisexual man</option>
+					<option value="Bisexual women">Bisexual woman</option>
+				</select>	
+				<select id="Country" name="CountryCode"> 
+					<option value="Germany">Germany</option>
+					<option value="United Kingdom">United Kingdom</option>
+					<option value="Austria">Austria</option>
+					<option value="France">France</option>
+					<option value="Spain">Spain</option>
+					<option value="Denmark">Denmark</option>
+					<option value="Italy">Italy</option>
+					<option value="Poland">Poland</option>
+					<option value="Belgium">Belgium</option>
+					<option value="Nether Lands">Nether Lands</option>
+				</select>
+				<input type="text" name="IDIn" style="display: none;" id="IDIn" value=<%= Dataset._id %>>
+				<input type="email" value=<%= Dataset.notes %> class="form-control" id="notes" name="notes" placeholder="Email Address">	
+				<input type="submit">
+			</form>
+		</div>
+		</div>
+</body>
+</html>
